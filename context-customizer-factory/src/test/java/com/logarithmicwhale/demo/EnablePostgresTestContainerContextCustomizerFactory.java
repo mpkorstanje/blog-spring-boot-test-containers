@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfigurationAttributes;
 import org.springframework.test.context.ContextCustomizer;
 import org.springframework.test.context.ContextCustomizerFactory;
 import org.springframework.test.context.MergedContextConfiguration;
+import org.springframework.test.context.TestContextAnnotationUtils;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
@@ -31,7 +32,7 @@ public class EnablePostgresTestContainerContextCustomizerFactory implements Cont
 
     @Override
     public ContextCustomizer createContextCustomizer(Class<?> testClass, List<ContextConfigurationAttributes> configAttributes) {
-        if (!(AnnotatedElementUtils.hasAnnotation(testClass, EnabledPostgresTestContainer.class))) {
+        if (!(TestContextAnnotationUtils.hasAnnotation(testClass, EnabledPostgresTestContainer.class))) {
             return null;
         }
         return new PostgresTestContainerContextCustomizer();
